@@ -1,6 +1,7 @@
 package com.example.lab3_20211602_iot.ui.sports;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.lab3_20211602_iot.databinding.FragmentSportsBinding;
 import com.example.lab3_20211602_iot.domain.model.MatchItem;
+import com.example.lab3_20211602_iot.storage.Preferences;
 import com.example.lab3_20211602_iot.ui.common.UiState;
 import com.example.lab3_20211602_iot.ui.sports.adapter.SportsAdapter;
 import java.util.List;
@@ -34,7 +36,14 @@ public class SportsFragment extends Fragment {
         binding.rvSports.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.rvSports.setAdapter(adapter);
 
-        binding.btnBuscarSports.setOnClickListener(v -> vm.search(binding.etCity.getText().toString().trim()));
+        String last = Preferences.getLastCity(requireContext());
+        if (!TextUtils.isEmpty(last)) binding.etCity.setText(last);
+
+        binding.btnBuscarSports.setOnClickListener(v -> {
+            String c = binding.etCity.getText().toString().trim();
+            Preferences.setLastCity(requireContext(), c);
+            vm.search(c);
+        });
 
         vm.getState().observe(getViewLifecycleOwner(), s -> render(s));
     }

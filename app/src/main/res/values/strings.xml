@@ -5,11 +5,17 @@
     <string name="sin_resultados">Sin resultados</string>
     <string name="error">Error</string>
     <string name="buscar_locaci_n">Buscar locación</string>
-    <string name="diaas_1_14">Días (1-14)</string>
+    <string name="diaas_1_14">Días (1–14)</string>
     <string name="location">Location</string>
     <string name="cargar_pron_stico">Cargar pronóstico</string>
     <string name="sin_datos">Sin datos</string>
     <string name="error_1">Error</string>
     <string name="max">Max:</string>
     <string name="min">Min:</string>
+    <string name="location_1">Location</string>
+    <string name="pron_stico">Pronóstico</string>
+    <string name="deportes">Deportes</string>
+    <string name="tele_weather">TELE-WEATHER</string>
+    <string name="ingresar">Ingresar</string>
+    <string name="elaborado_por_edgar_dz_20211602">Elaborado por: Edgar DZ / 20211602</string>
 </resources>

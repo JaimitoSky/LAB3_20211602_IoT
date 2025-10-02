@@ -1,5 +1,6 @@
 package com.example.lab3_20211602_iot.ui.forecast;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -12,6 +13,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.lab3_20211602_iot.databinding.FragmentForecastBinding;
 import com.example.lab3_20211602_iot.domain.model.ForecastDayItem;
+import com.example.lab3_20211602_iot.sensors.ShakeDetector;
+import com.example.lab3_20211602_iot.storage.Preferences;
 import com.example.lab3_20211602_iot.ui.common.UiState;
 import com.example.lab3_20211602_iot.ui.forecast.adapter.ForecastAdapter;
 import java.util.List;
@@ -22,6 +25,7 @@ public class ForecastFragment extends Fragment {
     private ForecastAdapter adapter;
     private long idLocation;
     private String name;
+    private ShakeDetector shake;
 
     @Nullable
     @Override
@@ -40,15 +44,35 @@ public class ForecastFragment extends Fragment {
         Bundle args = getArguments();
         idLocation = args != null ? args.getLong("idLocation", 0L) : 0L;
         name = args != null ? args.getString("name", "") : "";
+
+        if (idLocation == 0L) idLocation = Preferences.getLastLocationId(requireContext());
+        if (TextUtils.isEmpty(name)) name = Preferences.getLastLocationName(requireContext());
+
         binding.tvLocation.setText(name);
+        int lastDays = Preferences.getLastDays(requireContext());
+        binding.etDays.setText(String.valueOf(lastDays));
 
         binding.btnCargar.setOnClickListener(v -> {
             String d = binding.etDays.getText().toString().trim();
             int days = TextUtils.isEmpty(d) ? 7 : Integer.parseInt(d);
+            Preferences.setLastDays(requireContext(), days);
             vm.load(idLocation, days);
         });
 
         vm.getState().observe(getViewLifecycleOwner(), s -> render(s));
+
+        shake = new ShakeDetector(requireContext(), 20f, new ShakeDetector.Listener() {
+            @Override
+            public void onShake() {
+                new AlertDialog.Builder(requireContext())
+                        .setTitle("Acción rápida")
+                        .setItems(new CharSequence[]{"Limpiar pronóstico", "Restaurar último"}, (dialog, which) -> {
+                            if (which == 0) vm.clearCurrent();
+                            else vm.restoreLast();
+                        })
+                        .show();
+            }
+        });
     }
 
     private void render(UiState<List<ForecastDayItem>> s) {
@@ -67,6 +91,18 @@ public class ForecastFragment extends Fragment {
             binding.tvError.setText(s.message == null ? "Error" : s.message);
             binding.tvError.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (shake != null) shake.start();
+    }
+
+    @Override
+    public void onPause() {
+        if (shake != null) shake.stop();
+        super.onPause();
     }
 
     @Override

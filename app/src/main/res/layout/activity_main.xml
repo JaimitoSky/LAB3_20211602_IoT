@@ -3,25 +3,39 @@
     android:gravity="center"
     android:padding="24dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient">
+
+    <ImageView
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@drawable/tele_weather_logo"
+        android:contentDescription="@string/app_name"
+        android:layout_marginBottom="20dp"/>
 
     <TextView
-        android:text="TELE-WEATHER"
+        android:text="@string/tele_weather"
         android:textSize="28sp"
         android:textStyle="bold"
+        android:textColor="@android:color/white"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"/>
 
     <Button
         android:id="@+id/btnIngresar"
-        android:text="Ingresar"
-        android:layout_marginTop="24dp"
+        android:text="@string/ingresar"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:background="@drawable/btn_primary"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="48dp"
+        android:layout_marginBottom="28dp"/>
 
     <TextView
-        android:text="Elaborado por: NOMBRE / 20211602"
-        android:layout_marginTop="16dp"
+        android:text="@string/elaborado_por_edgar_dz_20211602"
+        android:textColor="@android:color/white"
+        android:alpha="0.85"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 </LinearLayout>

@@ -4,7 +4,7 @@ import android.os.Bundle;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 import com.example.lab3_20211602_iot.databinding.ActivityAppBinding;
 
@@ -17,12 +17,14 @@ public class AppActivity extends AppCompatActivity {
         binding = ActivityAppBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host);
+        NavHostFragment navHostFragment =
+                (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host);
+        assert navHostFragment != null;
+        NavController navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(binding.bottomNav, navController);
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
+            @Override public void handleOnBackPressed() {
                 if (!navController.popBackStack()) finish();
             }
         });

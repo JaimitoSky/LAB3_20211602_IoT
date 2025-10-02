@@ -1,8 +1,6 @@
 package com.example.lab3_20211602_iot.ui.location;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.lab3_20211602_iot.R;
 import com.example.lab3_20211602_iot.databinding.FragmentLocationBinding;
 import com.example.lab3_20211602_iot.domain.model.LocationItem;
+import com.example.lab3_20211602_iot.storage.Preferences;
 import com.example.lab3_20211602_iot.ui.common.UiState;
 import com.example.lab3_20211602_iot.ui.location.adapter.LocationAdapter;
 import java.util.List;
@@ -38,6 +37,8 @@ public class LocationFragment extends Fragment {
         adapter = new LocationAdapter(new LocationAdapter.OnClick() {
             @Override
             public void onItem(LocationItem item) {
+                Preferences.setLastLocationId(requireContext(), item.id);
+                Preferences.setLastLocationName(requireContext(), item.name);
                 Bundle b = new Bundle();
                 b.putLong("idLocation", item.id);
                 b.putString("name", item.name);
@@ -48,7 +49,14 @@ public class LocationFragment extends Fragment {
         binding.rvLocations.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.rvLocations.setAdapter(adapter);
 
-        binding.btnBuscar.setOnClickListener(v -> vm.search(binding.etQuery.getText().toString().trim()));
+        String last = Preferences.getLastQuery(requireContext());
+        binding.etQuery.setText(last);
+
+        binding.btnBuscar.setOnClickListener(v -> {
+            String q = binding.etQuery.getText().toString().trim();
+            Preferences.setLastQuery(requireContext(), q);
+            vm.search(q);
+        });
 
         vm.getState().observe(getViewLifecycleOwner(), s -> render(s));
     }
