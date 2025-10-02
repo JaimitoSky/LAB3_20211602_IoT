@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/locationFragment"
+        android:title="Location"
+        android:icon="@mipmap/ic_launcher"/>
+    <item
+        android:id="@+id/forecastFragment"
+        android:title="Pronóstico"
+        android:icon="@mipmap/ic_launcher"/>
+    <item
+        android:id="@+id/sportsFragment"
+        android:title="Deportes"
+        android:icon="@mipmap/ic_launcher"/>
+</menu>
