@@ -1,34 +1,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/tvLocation"
-        android:text="Location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <EditText
-        android:id="@+id/etDays"
-        android:hint="Días (1-14)"
-        android:inputType="number"
-        android:layout_marginTop="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <Button
-        android:id="@+id/btnCargar"
-        android:text="Cargar pronóstico"
-        android:layout_marginTop="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
+    android:orientation="vertical" android:padding="16dp"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <TextView android:id="@+id/tvLocation" android:text="@string/location"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+    <EditText android:id="@+id/etDays" android:hint="@string/diaas_1_14" android:inputType="number"
+        android:layout_marginTop="8dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <Button android:id="@+id/btnCargar" android:text="@string/cargar_pron_stico"
+        android:layout_marginTop="8dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <ProgressBar android:id="@+id/progress"
+        android:layout_marginTop="8dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:visibility="gone"/>
+    <TextView android:id="@+id/tvEmpty" android:text="@string/sin_datos"
+        android:layout_marginTop="8dp" android:visibility="gone"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+    <TextView android:id="@+id/tvError" android:text="@string/error_1"
+        android:layout_marginTop="8dp" android:visibility="gone"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvForecast"
         android:layout_marginTop="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:visibility="gone"/>
 </LinearLayout>

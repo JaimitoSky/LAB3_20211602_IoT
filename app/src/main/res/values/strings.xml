@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Lab3_20211602_IoT</string>
+    <string name="coma">,</string>
+    <string name="buscar">Buscar</string>
+    <string name="sin_resultados">Sin resultados</string>
+    <string name="error">Error</string>
+    <string name="buscar_locaci_n">Buscar locación</string>
+    <string name="diaas_1_14">Días (1-14)</string>
+    <string name="location">Location</string>
+    <string name="cargar_pron_stico">Cargar pronóstico</string>
+    <string name="sin_datos">Sin datos</string>
+    <string name="error_1">Error</string>
+    <string name="max">Max:</string>
+    <string name="min">Min:</string>
 </resources>
